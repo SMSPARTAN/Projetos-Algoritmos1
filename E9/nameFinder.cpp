@@ -15,8 +15,9 @@ int main()
     std::getline(std::cin, input);
 
     names.push_back(input);
-    std::cin.clear();
+    
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << '\n';
   }
 
   std::cout << std::endl << "Who are you searching for? ";
