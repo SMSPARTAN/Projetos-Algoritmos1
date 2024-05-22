@@ -3,50 +3,49 @@
 #include <string>
 #include <limits>
 
-double classAverage(const std::vector<double> &vec)
+struct student
 {
-  double result;
-  for(int i : vec)
+  std::string name;
+  double grade;
+};
+
+double classAverage(const std::vector<student>& vec)
+{
+  double result = 0.0;
+  for(const student& i : vec)
   {
-    result += i;
+    result += i.grade;
   }
   return result/vec.size();
 }
 
-void aboveAverage(const std::vector<std::string> &vecName, const std::vector<double> &vecGrade)
-{
-  for(int i = 0; i < 20; i++)
-      {
-        if(vecGrade[i] > classAverage(vecGrade))
-        {
-          std::cout << std::endl << vecName[i] << ": " << vecGrade[i] << std::endl;
-        }
-      }
-}
-
-std::vector<std::string> students;
-std::vector<double> grades;
-double studentGrade;
-std::string studentName;
+std::vector<student> students;
 
 int main()
 {
- for(int i = 0; i < 20; i++)
+  students.resize(20);
+
+  for(int pos = 0; pos < 20; pos++)
   {
-      std::cout << "\nEnter Student Name: ";
-      std::getline(std::cin, studentName);
-
-      students.push_back(studentName);
-
-      std::cout << "Enter Student Grade: ";
-      std::cin >> studentGrade;
-
-      grades.push_back(studentGrade);
-
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');      
+    std::cout << "\nEnter thr student name: ";
+    std::getline(std::cin, students[pos].name);
+    
+    std::cout << "\nEnter the student's grade: ";
+    std::cin >> students[pos].grade;
+    
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   }
   
-  std::cout << "\nClass Average was: " << classAverage(grades) << "\nAbove Average Students were:\n";
-  aboveAverage(students, grades);    
+  double avg = classAverage(students);
+  
+  for(int i = 0; i < students.size(); i++)
+  {
+    if(students[i].grade > avg)
+    {
+      std::cout << std::endl <<students[i].name << ": " << students[i].grade << std::endl;
+    }
+  }
   return 0;
+  
 }
+
